@@ -1,0 +1,60 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct BT{
+  int data;
+  BT*lf;
+  BT*rg;
+  int level;
+};
+struct BT*Newnode(int x)
+{
+   BT *temp=new BT();
+   temp->data=x;
+   temp->lf=NULL;
+    temp->rg=NULL;
+    temp->level=0;
+    return temp;    
+}
+void SetLevel(struct BT*root)
+{
+   if(root->lf!=NULL){
+       root->lf->level=root->level+1;  
+     SetLevel(root->lf);
+   }
+   if(root->rg!=NULL){
+     root->rg->level=root->level+1;
+     SetLevel(root->rg);
+   }
+}
+void PrintGivenlevel(struct BT *root,int low,int high)
+  {
+      SetLevel(root);
+    queue<BT*>q;
+     q.push(root);
+    while(!q.empty())
+    {
+         BT *temp=q.front();
+         if(temp->level>=high)
+            break;
+         if(temp->level>=low-1&&temp->level<=high-1)
+            cout<<temp->data<<" ";
+           q.pop();
+           if(temp->lf!=NULL)
+            q.push(temp->lf);
+           if(temp->rg!=NULL){
+            q.push(temp->rg);
+           }
+    }
+}
+int main()
+{
+     BT*A=Newnode(20);
+    A->lf=Newnode(8);
+    A->rg=Newnode(22);
+    A->lf->lf=Newnode(4);
+    A->lf->rg=Newnode(12);
+    A->lf->rg->lf=Newnode(10);
+    A->lf->rg->rg-Newnode(14);
+    PrintGivenlevel(A,2,3);
+    return 0;
+}
