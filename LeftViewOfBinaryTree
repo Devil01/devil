@@ -1,0 +1,61 @@
+//LeftView Of Binary Tree
+//NAVIN
+
+#include<bits/stdc++.h>
+using namespace std;
+struct BT{
+ int data;
+ BT* lf;
+ BT*rg;
+ };
+ struct BT*Newnode(int x)
+ {
+     BT* temp=new BT();
+     temp->data=x;
+     temp->lf=NULL;
+     temp->rg=NULL;
+     return temp;
+ }
+ void LeftView(struct BT*root)
+ {
+     vector<BT*>vec;
+     queue<BT*>q;
+     q.push(root);
+     while(!q.empty())
+     {
+         BT* temp=q.front();
+         q.pop();
+         vec.push_back(temp);
+         if(temp->lf!=NULL)
+            q.push(temp->lf);
+         if(temp->rg!=NULL)
+            q.push(temp->rg);
+         
+     }
+     for(int i=0;i<vec.size();i=i*2+1)
+       cout<<vec[i]->data<<" ";        
+ }
+ void PrintTree(BT *root)
+ {
+     if(root==NULL)
+        return;
+         cout<<root->data<<" ";
+     PrintTree(root->lf);
+      PrintTree(root->rg);
+ }
+int main()
+{
+    BT*A=Newnode(1);
+    A->lf=Newnode(2);
+    A->rg=Newnode(3);
+    A->lf->lf=Newnode(4);
+    A->lf->rg=Newnode(5);
+    A->lf->lf->lf=Newnode(6);
+    A->lf->lf->rg=Newnode(7);
+    A->lf->rg->lf=Newnode(8);
+    A->lf->rg->rg=Newnode(9);
+    PrintTree(A);
+    cout<<endl;
+  LeftView(A);
+  return 0;
+}
