@@ -1,0 +1,111 @@
+//Union and intersection of linked list......
+//NAVIN
+//Here we go....:) :) :) :) 
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+struct node{
+ int data;
+ node *next; 
+};
+void Push(node**start,int x)
+{
+     node *temp= new node();
+     temp->data=x;
+     temp->next=*start;
+     *start=temp;
+}
+void Print(node*start)
+{
+    node *temp=start;
+    while(temp!=NULL){
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<endl;
+        
+}
+void UnionSet(node *start1,node *start2)
+{
+    node *result=NULL;
+    node*temp1=start1;
+    node *temp2=start2;
+    map<int,int>mp;
+    while(temp1!=NULL)
+    {
+        Push(&result,temp1->data);
+        mp[temp1->data]++;
+      temp1=temp1->next;
+    }
+    while(temp2!=NULL)
+    {
+        if(mp[temp2->data]==0){
+            Push(&result,temp2->data);
+        }
+        temp2=temp2->next;
+    }
+    cout<<"Union is\n";
+    Print(result);
+}
+void Intersection(node* start1,node* start2)
+{
+    map<int,int>ma;
+    node *res=NULL;
+    node *temp=start1;
+    node* temp1=start2;
+    while(temp!=NULL){
+       ma[temp->data]++;
+       temp=temp->next;
+    }
+    while(temp1!=NULL)
+    {
+        if(ma[temp1->data]!=0)
+            Push(&res,temp1->data);
+          temp1=temp1->next;
+    }
+    cout<<"Intersection is\n";
+    Print(res);
+}
+int main()
+{
+    node*start1=NULL;
+    node *start2=NULL;
+    Push(&start1,2);
+    Push(&start1,3);
+    Push(&start1,6);
+    Push(&start1,7);
+    Push(&start2,3);
+    Push(&start2,4);
+    Push(&start2,5);
+    Push(&start2,6);
+    UnionSet(start1,start2);
+       Intersection(start1,start2);
+    return 0;
+    
+    
+}
