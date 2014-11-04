@@ -1,0 +1,74 @@
+//Check Binary Tree is BST or not........
+//NAVIN
+//Here we go....:) :) :) :) 
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+struct BT{
+  int data;
+  BT*lf;
+  BT*rg;
+};
+BT*Newnode(int x)
+{
+    BT*temp=new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg=NULL;
+    return temp;
+}
+bool isBST(BT*root)
+{
+    static BT *prev=NULL;
+    if(root!=NULL){
+        if(!isBST(root->lf))
+            return false;
+        if(prev!=NULL&&root->data<=prev->data)
+            return false;
+          prev=root;
+        return (isBST(root->rg));
+    }
+    return true;
+    
+}
+int main()
+{
+    BT*A=Newnode(1);
+    A->lf=Newnode(2);
+    A->rg=Newnode(3);
+    A->lf->lf=Newnode(4);
+    A->lf->rg=Newnode(5);
+    A->rg->lf=Newnode(6);
+    A->rg->rg=Newnode(7);
+  if(isBST(A))
+    cout<<"Is BST"<<endl;
+   else
+    cout<<"Is Not BST"<<endl;
+    return 0;
+    
+}
