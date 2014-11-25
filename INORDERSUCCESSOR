@@ -1,0 +1,122 @@
+//Inorder successor of BST..
+//NAVIN
+//Here we go....:) :) :) :) 
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef long  long LL;
+#define  LL long long 
+#define MAX 100000
+#include<math.h>
+vector<LL int>V(4*1000);
+vector<LL int>F;
+/*int read_int()
+{
+    char c = gc();
+    while(c<'0' || c>'9') c = gc();
+    
+    LL int ret = 0;
+    while(c>='0' && c<='9')
+    {
+        ret = 10 * ret + c - 48;
+        c = gc();
+    }
+    return ret;
+}*/
+struct BT{
+    int data;
+   BT *lf; //left
+   BT*rg;  //right
+   BT*par; //parent
+};
+BT *Newnode(int x)
+{
+   BT *temp=new BT();
+   temp->data=x;
+   temp->lf=NULL;
+   temp->rg=NULL;
+   temp->par=NULL;
+   return(temp);
+}
+BT* Insert(BT* root,int x)
+{
+    if(root==NULL)
+        return(Newnode(x));
+    else{
+        BT* temp;
+      if(x<=root->data){
+        temp=Insert(root->lf,x);
+         root->lf=temp;
+         temp->par=root;
+        }
+        else{
+            temp=Insert(root->rg,x);
+            root->rg=temp;
+            temp->par=root;
+        }
+       return root; 
+    }
+}
+BT *Minval(BT*root)
+{
+    BT* current=root;
+    while(current->lf!=NULL)
+    {
+        current=current->lf;
+        
+    }
+    return current;
+}
+BT *inorderSucc(BT *root,BT *n)
+{
+    if(n->rg!=NULL)
+        return Minval(n->rg);
+    BT* p=n->par;
+    while(p!=NULL&&n==p->rg)
+    {
+        n=p;
+        p=p->par;
+    }
+    return p;
+}
+int main()
+{
+    BT* root=NULL;
+    BT* temp,*succ;
+   root= Insert(root,20);
+   root=Insert(root,8);
+   root=Insert(root,22);
+   root=Insert(root,4);
+   root=Insert(root,12);
+   root=Insert(root,10);
+   root=Insert(root,14);
+   temp=root->lf->rg->rg;
+   succ=inorderSucc(root,temp);
+   if(succ!=NULL)
+    cout<<succ->data<<endl;
+   else
+    cout<<"Inorder doesn't exit"<<endl;
+   return 0;
+}
