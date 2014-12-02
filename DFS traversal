@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+vector<vector<int> >g(4);
+vector<bool>V(5);
+void DFS(int v)
+{
+    V[v]=true;
+    cout<<v<<" ";
+    for(vector<int>::iterator i=g[v].begin();i!=g[v].end();i++)
+    {
+        if(!V[*i])
+           DFS(*i); 
+    }
+    
+}
+int main()
+{
+    
+    g[0].push_back(1);
+    g[0].push_back(2);
+    g[2].push_back(2);
+    g[2].push_back(0);
+    g[2].push_back(3);
+    g[3].push_back(3);
+    DFS(2);
+    return 0;
+}
