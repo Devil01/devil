@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :) 
+struct BT{
+  int data;
+  BT *lf;
+  BT*rg;
+};
+BT* Newnode(int x)
+{
+    BT* temp= new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg=NULL;
+    return temp;
+}
+BT* Insert(BT *root,int x){
+  if(root==NULL){
+    return Newnode(x);
+  }
+  else{
+        BT*temp;
+    if(x<=root->data){
+       temp=Insert(root->lf,x);
+        root->lf=temp;
+    }
+    else{
+        temp=Insert(root->rg,x);
+        root->rg=temp;
+    }
+  }
+  return root;
+}
+void KthElementinBst(BT *root,int k)
+{
+    vector<int>Vec;
+    stack<BT*>S;
+    while(1){
+        while(root!=NULL){
+           S.push(root);
+           root=root->lf;
+        }
+     if(S.empty())
+        break;
+      root=S.top();
+         S.pop();
+        Vec.push_back(root->data);
+        root=root->rg;
+        }
+        cout<<Vec.at(k-1)<<endl;
+   }
+int main()
+{
+    BT *root=NULL;
+    root=Insert(root,20);
+    root=Insert(root,8);
+    root=Insert(root,22);
+    root=Insert(root,4);
+    root=Insert(root,12);
+    root=Insert(root,14);
+    root=Insert(root,10);
+    KthElementinBst(root,3);
+    return 0;
+    
+}
+    
+
+        
