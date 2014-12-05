@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :) 
+struct BT{
+  int data;
+  BT*rg;
+  BT*lf;
+};
+BT*Newnode(int x)
+{
+    BT* temp=new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg==NULL;
+    return temp;
+}
+BT* SortedArraytoBst(int arr[],int start, int last){
+   if(start>last)
+    return NULL;
+   int mid=(start+last)/2;
+   BT*root=Newnode(arr[mid]);
+   root->lf=SortedArraytoBst(arr,start,mid-1);
+   root->rg=SortedArraytoBst(arr,mid+1,last);
+   return root;
+}
+void Preorder(BT *root)
+{
+    stack<BT*>S;
+    while(1)
+    {
+        while(root)
+        {
+            cout<<root->data<<" ";
+            S.push(root);
+            root=root->lf;
+        }
+        if(S.empty())
+            break;
+        root=S.top();
+        S.pop();
+        root=root->rg;
+    }
+}
+int main()
+{  int arr[] = {1, 2, 3, 4, 5, 6, 7};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    BT* root=SortedArraytoBst(arr,0,n-1);
+    Preorder(root);
+    return 0;
+}
+
+
+        
