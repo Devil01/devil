@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+int main()
+{
+    string s;
+    map<string,int>mp;
+    vector<string>V;
+    cin>>s;
+    for(int i=0;i<s.size();i++)
+    {
+        mp[s.substr(i,s.size()-i)]=i;
+        V.push_back(s.substr(i,s.size()-i));
+        
+    }
+    sort(V.begin(),V.end());
+    for(int i=0;i<V.size();i++)
+    {
+        cout<<mp[V[i]]<<" "<<V[i]<<endl;
+    }
+    return 0;
+}
