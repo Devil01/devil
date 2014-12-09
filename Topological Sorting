@@ -1,0 +1,81 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+vector<vector<int> >g(6);
+map<int,int>m;
+void Indegree(){
+    int v;
+    for(v=0;v<g.size();v++){
+        for(int i=0;i<g.size();i++){
+            for(vector<int>::iterator it=g[i].begin();it!=g[i].end();it++){
+                if(*it==v)
+                 m[v]++;     
+            }
+        }
+    }
+}
+void TopologicalSort()
+{
+ queue<int>q;
+ vector<int>topo;
+ int counter=0;
+ int v,w;
+ Indegree();
+ for(v=0;v<g.size();v++){
+    if(m[v]==0)
+        q.push(v);
+ }
+ while(!q.empty())
+ {
+    v=q.front();
+    q.pop();
+    topo.pb(v);
+    counter++;
+    for(vector<int>::iterator it=g[v].begin();it!=g[v].end();it++){
+        if(--m[*it]==0)
+            q.push(*it);
+    }
+}
+  for(vector<int>::iterator it=topo.begin();it!=topo.end();it++)
+     cout<<*it<<" ";
+}
+int main()
+{
+    g[5].pb(0);
+    g[5].pb(2);
+    g[4].pb(0);
+    g[4].pb(1);
+    g[2].pb(3);
+    g[3].pb(1);
+    TopologicalSort();
+    return 0;
+}
