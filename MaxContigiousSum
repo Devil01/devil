@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;   
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+ int MaxContigousSum(int A[],int n)
+ {
+     int M[n];
+     int MaxSum=0;
+     if(A[0]>0)
+        M[0]=A[0];
+     else
+        M[0]=0;
+     for(int i=1;i<n;i++)
+     {
+         if(M[i-1]+A[i]>0)
+           M[i]=M[i-1]+A[i];
+         else
+            M[i]=0;
+     }
+    for(int i=0;i<n;i++)
+    {
+        if(M[i]>MaxSum)
+            MaxSum=M[i];
+    }
+    return MaxSum;
+ }
+int main()
+{
+    int n,A[100];
+    cin>>n;
+    for(int i=0;i<n;i++){
+            cin>>A[i];
+    }
+    cout<<MaxContigousSum(A,n)<<endl;
+    return 0;
+    
+}
