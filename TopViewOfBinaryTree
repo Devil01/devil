@@ -1,0 +1,94 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;   
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+struct BT{
+ int data;
+ BT*lf;
+ BT*rg;
+ int hd;
+};
+BT*Newnode(int x)
+{
+    BT*temp=new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg=NULL;
+    temp->hd=0;
+    return temp;
+}
+void SetHorizontalDistance(BT*root)
+{
+    if(root==NULL)
+        return;
+    if(root->lf!=NULL){
+        root->lf->hd=root->hd-1;
+        SetHorizontalDistance(root->lf);
+    }
+    if(root->rg!=NULL){
+        root->rg->hd=root->hd+1;
+        SetHorizontalDistance(root->rg);
+    }
+        
+}
+void TopView(BT*root)
+{
+    SetHorizontalDistance(root);
+    if(root==NULL)
+        return;
+    queue<BT*>q;
+    map<int,BT*>mp;
+    q.push(root);
+    while(!q.empty())
+    {
+        BT* root=q.front();
+        q.pop();
+        if(!mp[root->hd]){
+            mp[root->hd]=root;
+            cout<<root->data<<" ";
+        }
+        if(root->lf!=NULL)
+            q.push(root->lf);
+        if(root->rg!=NULL)
+            q.push(root->rg);
+    }
+}
+int main()
+{
+    BT *root=Newnode(1);
+    root->lf=Newnode(2);
+    root->rg=Newnode(3);
+    root->lf->rg=Newnode(4);
+    root->lf->rg->rg=Newnode(5);
+    root->lf->rg->rg->rg=Newnode(6);
+    TopView(root);
+    return 0;
+}
