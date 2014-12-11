@@ -1,0 +1,98 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;   
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+struct BT{
+  int data;
+  BT*lf;
+  BT*rg;
+  int hd;
+};
+BT*Newnode(int x)
+{
+    BT* temp= new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg=NULL;
+    temp->hd=0;
+    return  temp;
+}
+void SetHorizontalDistance(BT*root)
+{
+   if(root==NULL)
+        return;
+   if(root->lf!=NULL){
+     root->lf->hd=root->hd-1;
+     SetHorizontalDistance(root->lf);
+   }
+   if(root->rg!=NULL){
+     root->rg->hd=root->hd+1;
+     SetHorizontalDistance(root->rg);
+   }
+}
+void VerticalOrder(BT*root)
+{
+ SetHorizontalDistance(root);
+ map<int,vector<BT*> >m;
+ queue<BT*>q;
+ q.push(root);
+ while(!q.empty())
+ {
+     BT* root=q.front();
+     q.pop();
+     m[root->hd].push_back(root);
+     if(root->lf!=NULL)
+        q.push(root->lf);
+     if(root->rg!=NULL)
+        q.push(root->rg);
+ }
+ map<int,vector<BT*> >::iterator it;
+ for(it=m.begin();it!=m.end();it++)
+ {
+     for(int i=0;i<it->second.size();i++)
+        cout<<it->second[i]->data<<" ";
+        cout<<endl;
+ }
+}
+int main()
+{
+    BT*root=Newnode(1);
+    root->lf=Newnode(2);
+    root->rg=Newnode(3);
+      root->lf->lf=Newnode(4);
+       root->lf->rg=Newnode(5);
+        root->rg->lf=Newnode(6);
+         root->rg->rg=Newnode(7);
+          root->rg->lf->rg=Newnode(8);
+           root->rg->rg->rg=Newnode(9);
+        VerticalOrder(root);
+        return 0;
+}
