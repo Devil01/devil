@@ -1,0 +1,105 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI >VII;   
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+struct BT{
+  int data;
+  BT *lf;
+  BT*rg;
+};
+BT*Newnode(int x)
+{
+    BT* temp=new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg=NULL;
+    return temp;
+}
+void PrintLeave(BT* root)
+{
+    if(root){
+    PrintLeave(root->lf);
+    if(!root->lf&&!root->rg)
+    cout<<root->data<<" ";
+    PrintLeave(root->rg);
+    }
+}
+void PrintLeftBoundary(BT*root)
+{
+    if(root){
+        if(root->lf){
+            cout<<root->data<<" ";
+            PrintLeftBoundary(root->lf);
+        }
+       else if(root->rg){
+         cout<<root->data<<" ";
+         PrintLeftBoundary(root->rg);
+       } 
+    }
+    
+}
+void PrintRightBoundary(BT*root)
+{
+    if(root){
+        if(root->rg){
+            PrintRightBoundary(root->rg);
+            cout<<root->data<<" ";
+        }
+        else if(root->lf){
+            PrintRightBoundary(root->lf);
+            cout<<root->data<<" ";
+        }
+    }
+}
+void PrintBoundary(BT*root)
+{
+    if(root){
+        cout<<root->data<<" ";
+        PrintLeftBoundary(root->lf);
+        PrintLeave(root->lf);
+        PrintLeave(root->rg);
+        PrintRightBoundary(root->rg);
+    }
+}
+int main()
+{
+    
+    BT* root= Newnode(20);
+    root->lf = Newnode(8);
+    root->rg = Newnode(22);
+    root->lf->lf = Newnode(4);
+    root->lf->rg = Newnode(12);
+     root->rg->rg= Newnode(25);
+    root->lf->rg->lf  = Newnode(10);
+    root->lf->rg->rg = Newnode(14);
+   PrintBoundary(root);
+   return 0;
+}
