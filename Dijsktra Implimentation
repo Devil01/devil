@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+#include<sstream>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI>VII;   
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+// Let's Do Something New.....
+// :) :) :)
+vector<VPII>G(100);
+void Dijsktra( int start)
+{
+    priority_queue<PII,VPII,greater<PII> >Q;
+    vector<int>D(9,INFINITY);
+    vector<bool>F(9);
+    D[start]=0;
+    int u,v,w;
+    Q.push(mp(start,0));;
+    while(!Q.empty())
+    {
+        u=Q.top().first;
+        Q.pop();
+        if(F[u])
+            continue;
+        int sz=G[u].size();
+        for(int i=0;i<sz;i++)
+        {
+            v=G[u][i].first;
+            w=G[u][i].second;
+            if(!F[v]&&D[u]+w<D[v]){
+                D[v]=D[u]+w;
+                Q.push(mp(v,D[v]));
+            }
+        }
+        F[u]=true;
+    }
+    
+    for(int i=0;i<D.size();i++)
+        cout<<i<<"   "<<D[i]<<endl;
+        
+    }
+int main()
+{
+     int u,v,w,n,edge;
+     cin>>n>>edge;
+     for(int i=0;i<edge;i++){
+        cin>>u>>v>>w;
+        G[u].pb(mp(v,w));
+        G[v].pb(mp(u,w));
+     }
+     Dijsktra(0);
+     return 0;
+}
+
