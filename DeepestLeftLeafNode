@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+#include<stdlib.h>
+#include<cstdio>
+#include<utility>
+#include<vector>
+#include<iostream>
+#include<string.h>
+#include<map>
+#include<algorithm>
+#include<sstream>
+using namespace std;
+#define pb push_back
+#define mp make_pair
+#define clr(x) x.clear()
+#define For(i,a,b) for(i=a;i<b;i++)
+#define loop(i,b) for(i=0;i<b;i++)
+#define Loop(i,b) for(i=1;i<=b;i++)
+#ifndef ONLINE_JUDGE
+#define gc getchar
+#else
+#define gc getchar_unlocked
+#endif
+const int MOD=1e9+7;
+typedef pair<int,int> PII;
+typedef vector<PII> VPII;
+typedef vector<int> VI;
+typedef vector<VI>VII;   
+typedef long long LL;
+#define LL long long
+#include<math.h>
+//NAVIN
+//Lets do something new...
+// :) :) :)
+struct BT{
+  int data;
+  BT*lf ;
+ BT *rg;
+};
+BT *Newnode(int x)
+{
+    BT *temp=new BT();
+    temp->data=x;
+    temp->lf=NULL;
+    temp->rg=NULL;
+    return temp;
+}
+void DeepestLeafNodeUntill( BT*root,int lvl,int *Mxlvl,bool isLeft,BT**resptr)
+{
+    if(root==NULL)
+        return;
+    if(isLeft&&!root->lf&& !root->rg &&lvl>*Mxlvl){
+        *resptr=root;
+        *Mxlvl=lvl;
+        return;
+    }
+    DeepestLeafNodeUntill(root->lf,lvl+1,Mxlvl,true,resptr);
+    DeepestLeafNodeUntill(root->rg,lvl+1,Mxlvl,false,resptr);
+}
+BT* DeepestLeafNode(BT*root)
+{
+    int mxlvl=0;
+    BT* result=NULL;
+    DeepestLeafNodeUntill(root,0,&mxlvl,false,&result);
+    return result;
+}
+int main()
+{
+    BT* root = Newnode(1);
+    root->lf = Newnode(2);
+    root->rg = Newnode(3);
+    root->lf->lf = Newnode(4);
+    root->rg->lf = Newnode(5);
+    root->rg->rg = Newnode(6);
+    root->rg->lf->rg = Newnode(7);
+    root->rg->rg->rg = Newnode(8);
+    root->rg->lf->rg->lf = Newnode(9);
+    root->rg->rg->rg->rg = Newnode(10);
+
+    BT*result = DeepestLeafNode(root);
+    if (result)
+        cout << "The deepest left child is " << result->data;
+    else
+        cout << "There is no left leaf in the given tree";
+
+    return 0;
+}
+
